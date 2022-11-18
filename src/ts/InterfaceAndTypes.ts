@@ -22,7 +22,7 @@ export interface PostProps {
     cover?: string
     content: string
     createdAt: string
-    columnId: number
+    column: number
 }
 
 export interface UserProps {

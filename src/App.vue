@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <global-header :user="currentUser" />
+        <loader background="" text="加载中..." spinner-type="border" />
         <router-view />
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import Loader from '@/components/Loader.vue'
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/user'
 const store = useUserStore()

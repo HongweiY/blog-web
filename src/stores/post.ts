@@ -1,25 +1,29 @@
 import { defineStore } from 'pinia'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { PostProps } from '@/ts/InterfaceAndTypes'
-import { PostData } from '@/mockData'
+import axios from 'axios'
 
 export const usePostsStore = defineStore('posts', () => {
-    let posts = reactive<PostProps[]>([])
-    posts = PostData
+    const posts = ref<PostProps[]>([])
     const columnId = ref<number>(1)
 
     const getPostsByCid = computed(() => (cid: number) => {
-        return posts.filter((p) => p.columnId === cid)
+        return posts.value.filter((p) => p.column === cid)
     })
 
     const createPost = (post: PostProps) => {
-        posts.push(post)
+        posts.value.push(post)
     }
 
+    const fetchPosts = async (cid: number) => {
+        const { data } = await axios.get(`/api/columns/${cid}/posts`)
+        posts.value = [...posts.value, ...data.data.list]
+    }
     return {
         posts,
         createPost,
         columnId,
         getPostsByCid,
+        fetchPosts,
     }
 })

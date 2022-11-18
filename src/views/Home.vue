@@ -26,6 +26,7 @@ import { useColumnStore } from '@/stores/column'
 import ColumnList from '@/components/ColumnList.vue'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+import { computed, onMounted } from 'vue'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -42,6 +43,9 @@ const createOrLogin = () => {
     }
 }
 const store = useColumnStore()
-const list = store.columns
+onMounted(() => {
+    store.fetchColumns()
+})
+const list = computed(() => store.columns)
 </script>
 <style scoped></style>
