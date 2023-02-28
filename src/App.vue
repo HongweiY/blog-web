@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <global-header :user="currentUser" />
-        <loader background="" text="加载中..." spinner-type="border" />
+        <loader v-if="loading" background="" text="加载中..." spinner-type="border" />
         <router-view />
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -21,8 +21,13 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import Loader from '@/components/Loader.vue'
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { useGlobalStore } from '@/stores/global'
+
 const store = useUserStore()
+const globalStore = useGlobalStore()
+
 const currentUser = computed(() => store.user)
+const loading = computed(() => globalStore.loading)
 </script>
 
 <style scoped></style>
